@@ -5,7 +5,7 @@
 (ns pastoral.fx.http
   (:require
     [clojure.string :as string]
-    [flybot.console :refer [console]]
+    [pastoral.console :refer [console]]
     [pastoral.coro :as coro]
     [pastoral.core :refer [dispatch]]
     [pastoral.fx :refer [reg-fx]])

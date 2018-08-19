@@ -28,10 +28,10 @@
 ;;     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 (ns pastoral.cofx
   (:require
-    [flybot.console        :refer [console]]
-    [flybot.registrar      :refer [register-kind get-value register-value clear-values]]
-    [pastoral.db           :refer [app-db]]
-    [pastoral.interceptor  :refer [->interceptor]]))
+    [pastoral.console :refer [console]]
+    [pastoral.db :refer [app-db]]
+    [pastoral.interceptor :refer [->interceptor]]
+    [pastoral.registrar :refer [register-kind get-value register-value clear-values]]))
 
 
 ;; -- Registration ------------------------------------------------------------
@@ -112,7 +112,7 @@
      :id      :coeffects
      :before  (fn coeffects-before
                 [context]
-                (if-let [handler (get-handler kind id)]
+                (if-let [handler (get-value kind id)]
                   (update context :coeffects handler)
                   (console :error "No cofx handler registered for" id)))))
   ([id value]
@@ -120,7 +120,7 @@
      :id     :coeffects
      :before  (fn coeffects-before
                 [context]
-                (if-let [handler (get-handler kind id)]
+                (if-let [handler (get-value kind id)]
                   (update context :coeffects handler value)
                   (console :error "No cofx handler registered for" id))))))
 

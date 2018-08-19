@@ -28,13 +28,13 @@
 ;;     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 (ns pastoral.events
   (:require
-    [flybot.console       :refer [console]]
-    [flybot.debug         :refer [debug?]]
-    [flybot.registrar     :refer [register-kind get-value register-value clear-values]]
-    [pastoral.db          :refer [app-db]]
-    [pastoral.utils       :refer [first-in-vector]]
-    [pastoral.interceptor :as  interceptor]
-    [pastoral.trace       :as trace]))
+    [pastoral.console :refer [console]]
+    [pastoral.db :refer [app-db]]
+    [pastoral.debug :refer [debug?]]
+    [pastoral.interceptor :as interceptor]
+    [pastoral.registrar :refer [register-kind get-value register-value clear-values]]
+    [pastoral.trace :as trace]
+    [pastoral.utils :refer [first-in-vector]]))
 
 (def kind :event)
 

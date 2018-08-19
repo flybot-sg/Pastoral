@@ -29,14 +29,14 @@
 (ns pastoral.std-interceptors
   "contains pastoral supplied, standard interceptors"
   (:require
-    [flybot.console :refer console]
-    [flybot.registrar :as registrar]
-    [pastoral.interceptor :refer [->interceptor get-effect get-coeffect assoc-coeffect assoc-effect]]
-    [pastoral.db :refer [app-db]]
     [clojure.data :as data]
     [pastoral.cofx :as cofx]
-    [pastoral.utils :as utils]
-    [pastoral.trace :as trace]))
+    [pastoral.console :refer [console]]
+    [pastoral.db :refer [app-db]]
+    [pastoral.interceptor :refer [->interceptor get-effect get-coeffect assoc-coeffect assoc-effect]]
+    [pastoral.registrar :as registrar]
+    [pastoral.trace :as trace]
+    [pastoral.utils :as utils]))
 
 
 (def debug

@@ -26,27 +26,59 @@
 ;;     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 ;;     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 ;;     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-(ns pastoral.utils
+(ns pastoral.registrar
   (:require
+    [pastoral.debug :refer [debug?]]
     [pastoral.console :refer [console]]))
 
-(defn dissoc-in
-  "Dissociates an entry from a nested associative structure returning a new
-  nested structure. keys is a sequence of keys. Any empty maps that result
-  will not be present in the new structure.
-  The key thing is that 'm' remains identical? to istelf if the path was never present"
-  [m [k & ks :as keys]]
-  (if ks
-    (if-let [nextmap (get m k)]
-      (let [newmap (dissoc-in nextmap ks)]
-        (if (seq newmap)
-          (assoc m k newmap)
-          (dissoc m k)))
-      m)
-    (dissoc m k)))
+(def ^:private kinds
+  "This atom contains a set of all keywords that represent different kinds of
+   values."
+  (atom #{}))
 
-(defn first-in-vector
-  [v]
-  (if (vector? v)
-    (first v)
-    (console :error "pastoral: expected a vector, but got:" v)))
+(defn register-kind
+  "Register kind of value."
+  [kind]
+  (swap! kinds conj kind)
+  kind)
+
+(def ^:private kind->id->value
+  "This atom contains a register of all values as a two layer map, keyed first
+   by kind, then by id of value. Leaf nodes are values."
+  (atom {}))
+
+(defn get-value
+  ([kind]
+   (get @kind->id->value kind))
+  ([kind id]
+   (get-in @kind->id->value [kind id]))
+  ([kind id required?]
+   (let [value (get-value kind id)]
+     (when debug?
+       (when (and required? (nil? value))
+         (console :error "no " (str kind) " value registered for " (str id))))
+     value)))
+
+(defn register-value
+  [kind id value]
+  (assert (@kinds kind) (str "kind " kind " not found"))
+  (when debug?
+    (when (get-value kind id false)
+      (console :warn "overwriting " (str kind) " value for " id)))
+  (swap! kind->id->value assoc-in [kind id] value)
+  value)
+
+(defn clear-values
+  ([]
+   (reset! kind->id->value {}))
+  ([kind]
+   (assert (@kinds kind))
+   (swap! kind->id->value dissoc kind))
+  ([kind id]
+   (assert (@kinds kind))
+   (if (get-value kind id)
+     (swap! kind->id->value update-in [kind] dissoc id)
+     (console :warn "can't clear " (str kind) " value for " (str id) ". Value not found."))))
+
+
+

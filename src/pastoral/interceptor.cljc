@@ -28,8 +28,8 @@
 ;;     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 (ns pastoral.interceptor
   (:require
-    [flybot.console :refer [console]]
-    [flybot.debug :refer [debug?]]
+    [pastoral.console :refer [console]]
+    [pastoral.debug :refer [debug?]]
     [pastoral.trace :as trace]
     [clojure.set :as set]))
 

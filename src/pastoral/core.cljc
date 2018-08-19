@@ -26,20 +26,19 @@
 ;;     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 (ns pastoral.core
   (:require
-    [flybot.console]
-    [flybot.registrar          :as registrar]
-    [flybot.registrar.core     :as registrar.core]
-    [pastoral.events           :as events]
-    [pastoral.db               :as db]
-    [pastoral.fx               :as fx]
-    [pastoral.cofx             :as cofx]
-    [pastoral.router           :as router]
-    [pastoral.interceptor      :as interceptor]
-    [pastoral.animation        :as anim]
-    [pastoral.render           :as render]
+    [pastoral.animation :as anim]
+    [pastoral.cofx :as cofx]
+    [pastoral.console]
+    [pastoral.db :as db]
+    [pastoral.events :as events]
+    [pastoral.fx :as fx]
+    [pastoral.registrar :as registrar]
+    [pastoral.router :as router]
+    [pastoral.interceptor :as interceptor]
+    [pastoral.render :as render]
     [pastoral.std-interceptors :as std-interceptors :refer [db-handler->interceptor
-                                                             fx-handler->interceptor
-                                                             ctx-handler->interceptor]]))
+                                                            fx-handler->interceptor
+                                                            ctx-handler->interceptor]]))
 
 ;; -- API ---------------------------------------------------------------------
 ;;
@@ -178,14 +177,14 @@
 ;; Example Usage:
 ;;   (defn my-fn [& args]  (post-it-somewhere (apply str args)))  ;; here is my alternative
 ;;   (pastoral.core/set-loggers!  {:warn my-fn :log my-fn})       ;; override the defaults with mine
-(def set-loggers! flybot.console/set-fns!)
+(def set-loggers! pastoral.console/set-fns!)
 
 ;; If you are writing an extension to pastoral, like perhaps
 ;; an effects handler, you may want to use pastoral logging.
 ;;
 ;; usage: (console :error "Oh, dear God, it happened: " a-var " and " another)
 ;;        (console :warn "Possible breach of containment wall at: " dt)
-(def console flybot.console/console)
+(def console pastoral.console/console)
 
 
 ;; -- unit testing ------------------------------------------------------------
@@ -197,13 +196,13 @@
   Checkpoint includes app-db and all registered handlers.
   "
   []
-  (let [handlers @registrar.core/kind->id->handler
+  (let [handlers @registrar/kind->id->value
         app-db   @db/app-db]
     (fn []
       ;; TODO Postoral equivalent of subscriptions integration.
 
       ;; Reset the atoms
-      (reset! registrar.core/kind->id->handler handlers)
+      (reset! registrar/kind->id->value handlers)
       (reset! db/app-db app-db)
       nil)))
 

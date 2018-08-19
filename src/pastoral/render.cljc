@@ -4,9 +4,8 @@
 ;; Clojure.
 (ns pastoral.render
   (:require
-    [flybot.fn-graph :as fng]
-    [flybot.registrar :refer [register-kind get-value register-value clear-values]]
-    [flybot.registrar.core :as register.core]))
+    [pastoral.fn-graph :as fng]
+    [pastoral.registrar :as registrar :refer [register-kind get-value register-value clear-values]]))
 
 (def kind :render)
 
@@ -22,13 +21,13 @@
   (@renderer-fn layout))
 
 (add-watch
-  registrar.core/kind->id->handler
+  registrar/kind->id->value
   :renderer
   (fn [k ref old-state new-state]
     (let [old-graph (get old-state kind)
           new-graph (get new-state kind)]
       (when-not (identical? new-graph old-graph)
-        (reset! renderer-fn (fng/compile-graph new-graph))))))
+        (reset! renderer-fn (fng/compile new-graph))))))
 
 (defn reg-render
   "Register the given function `handler` at the key `kw` in the render graph 

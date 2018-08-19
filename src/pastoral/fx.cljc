@@ -28,12 +28,12 @@
 ;;     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 (ns pastoral.fx
   (:require
-    [flybot.console :refer [console]]
-    [flybot.registrar     :refer [register-kind get-value register-value clear-values]]
-    [pastoral.router :as router]
+    [pastoral.console :refer [console]]
     [pastoral.db :refer [app-db]]
-    [pastoral.interceptor :refer [->interceptor]]
     [pastoral.events :as events]
+    [pastoral.interceptor :refer [->interceptor]]
+    [pastoral.registrar :refer [register-kind get-value register-value clear-values]]
+    [pastoral.router :as router]
     [pastoral.trace :as trace]))
 
 ;; -- Registration ------------------------------------------------------------

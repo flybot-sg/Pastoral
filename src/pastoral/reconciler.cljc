@@ -7,7 +7,7 @@
   (:use arcadia.core
         arcadia.linear)
   (:require
-    [flybot.console :as console]
+    [pastoral.console :refer [console]]
     [pastoral.animation :as anim]
     [pastoral.render :as render]
     [pastoral.router :as router]

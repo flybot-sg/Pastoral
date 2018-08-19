@@ -28,10 +28,10 @@
 ;;     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 (ns pastoral.router
   (:require
-    [flybot.console :refer [console]]
+    [pastoral.console :refer [console]]
     [pastoral.events :refer [handle]]
     [pastoral.tick :as tick]
-    [pastoral.trace   :as trace]))
+    [pastoral.trace :as trace]))
 
 
 ;; -- Router Loop ------------------------------------------------------------

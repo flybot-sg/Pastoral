@@ -5,8 +5,8 @@
 (ns pastoral.animation
   (:use arcadia.core)
   (:require
-    [flybot.registrar :refer [register-kind get-value register-value clear-values]]
-    [pastoral.coro :as coro])
+    [pastoral.coro :as coro]
+    [pastoral.registrar :refer [register-kind get-value register-value clear-values]])
   (:import [UnityEngine SpriteRenderer Color Vector3 Quaternion UI.Text]))
 
 (def kind :animation)

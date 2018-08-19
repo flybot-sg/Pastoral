@@ -5,7 +5,7 @@
 (ns pastoral.tick
   (:require
     #?(:cljr [arcadia.core :refer [object-named hook+]])
-    [flybot.console :refer [console]])
+    [pastoral.console :refer [console]])
   (:import
     #?(:clj [java.util.concurrent Executor Executors]
        :cljr [UnityEngine GameObject]))

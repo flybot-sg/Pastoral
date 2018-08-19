@@ -30,7 +30,7 @@
   "Tracing for pastoral.
   Alpha quality, subject to change/break at any time."
   (:require
-    [flybot.console :refer [console]]
+    [pastoral.console :refer [console]]
     [pastoral.datetime :as datetime]))
 
 (def id (atom 0))
