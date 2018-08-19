@@ -2,9 +2,9 @@
 ;;
 ;; This file is distributed under the Eclipse Public License, the same as
 ;; Clojure.
-(ns pastoral.unity.enum
+(ns pastoral.enum
   (:require
-    [pastoral.unity.string :refer [snake->lisp-case]])
+    [pastoral.string :refer [snake->lisp-case]])
   (:import
     [System Enum]))
 

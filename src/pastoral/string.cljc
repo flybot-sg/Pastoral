@@ -2,7 +2,7 @@
 ;;
 ;; This file is distributed under the Eclipse Public License, the same as
 ;; Clojure.
-(ns pastoral.unity.string
+(ns pastoral.string
   (:require
     [clojure.string :as string]))
 
