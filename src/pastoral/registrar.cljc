@@ -42,7 +42,7 @@
   (swap! kinds conj kind)
   kind)
 
-(def ^:private kind->id->value
+(def kind->id->value
   "This atom contains a register of all values as a two layer map, keyed first
    by kind, then by id of value. Leaf nodes are values."
   (atom {}))
@@ -79,6 +79,3 @@
    (if (get-value kind id)
      (swap! kind->id->value update-in [kind] dissoc id)
      (console :warn "can't clear " (str kind) " value for " (str id) ". Value not found."))))
-
-
-

@@ -172,10 +172,10 @@
 ;; or:
 ;;   {:deregister-event-handler [:one-id :another-id]}
 ;;
-(reg-fx
+#_(reg-fx
   :deregister-event-handler
   (fn [value]
-    (let [clear-event (partial clear-handlers events/kind)]
+    (let [clear-event (partial clear-handlers events/kind)] ;;FIXME no clear-handlers can be found
       (if (sequential? value)
         (doseq [event value] (clear-event event))
         (clear-event value)))))
@@ -193,4 +193,3 @@
   (fn [value]
     (if-not (identical? @app-db value)
       (reset! app-db value))))
-

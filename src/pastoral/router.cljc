@@ -130,7 +130,7 @@
 
   ;; register a callback function which will be called after each event is processed
   (add-post-event-callback [_ id callback-fn]
-    (if (contains? post-event-callback-fns id)
+    (when (contains? post-event-callback-fns id)
       (console :warn "pastoral: overwriting existing post event call back with id:" id))
     (->> (assoc post-event-callback-fns id callback-fn)
          (set! post-event-callback-fns)))
@@ -166,9 +166,9 @@
               ;; that two-part "do" function.
               [:idle :add-event] [:scheduled #(do (-add-event this arg)
                                                   (-run-next-tick this))]
-              [:idle :finish-run] (if (empty? queue     ;; FSM guard
-                                       [:idle]
-                                       [:scheduled #(-run-next-tick this)]))
+              [:idle :finish-run] (if (empty? queue)     ;; FSM guard
+                                    [:idle]
+                                    [:scheduled #(-run-next-tick this)])
 
               ;; State: :scheduled  (the queue is scheduled to run, soon)
               [:scheduled :add-event] [:scheduled #(-add-event this arg)]
