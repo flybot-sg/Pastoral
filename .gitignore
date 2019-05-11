@@ -2,3 +2,4 @@ target/
 pom.xml
 /.idea
 /pastoral.iml
+*.meta
